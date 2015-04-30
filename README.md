@@ -1,8 +1,14 @@
 # TabAccordion
 
 An accordion, that may change its display to tabbed content based on the screen width.
-It can be used with Twitter Bootstrap or Zurb Foundation stylesheets.
-Or you create your own styles based on the minimal standalone styles.
+
+## Features
+
+- Displays an accordion, tabbed content or plain HTML sections based on the configuration.
+- Switches modes when another CSS breakpoint from your stylesheet was reached.
+- Can be used with nearly any markup.
+- Can be used with Twitter Bootstrap or Zurb Foundation stylesheets. Or you create your own styles based on the basic standalone styles.
+- Autoplay mode is available – build a carousel out of tabs.
 
 ## Getting started
 
@@ -36,9 +42,18 @@ require( ['tabaccordion'], function( TabAccordion ) {
 } );
 ```
 
+The `init` method retrieves a configuration object. See [the source code](js/tabaccordion.js) for a full list of configuration options and their defaults (`var defaultConfig`).
+
 ### TabAccordion.autoPlay
 
 This function is used in the `init` method if `autoplay` is enabled in the configuration. You may also use it to manually setup autoplay of an TabAccordion later.
+
+When autoplay is enabled you can fire an event on the document object to pause or resume the TabAccordion:
+
+```javascript
+document.dispatchEvent( new CustomEvent( 'tabaccordion-pause' ) );
+document.dispatchEvent( new CustomEvent( 'tabaccordion-resume' ) );
+```
 
 ### TabAccordion.Accordion
 
