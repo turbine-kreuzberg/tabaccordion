@@ -239,6 +239,9 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
     Accordion.prototype.setComputedHeights = function() {
         var bodyWrapper, maxHeight = 0, currentMaxHeight, heading;
 
+        /* Hide wrapper during this function */
+        this.wrapper.classList.remove( 'in' );
+
         /* Remove any styles */
         var classNameTmp = this.wrapper.className;
         //this.wrapper.className = '';
@@ -268,6 +271,12 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
 
         /* set original class name */
         this.wrapper.className = classNameTmp;
+
+        /* Show the wrapper again */
+        var theWrapper = this.wrapper;
+        setTimeout( function() {
+            theWrapper.classList.add( 'in' );
+        }, 250 );
     };
 
     /**
