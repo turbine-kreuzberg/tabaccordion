@@ -197,7 +197,6 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             }
 
             currentAccordion.sections[i].appendChild( thisBodyWrapper );
-            currentAccordion.sections[i].insertBefore( thisBodyWrapper, currentAccordion.sections[i].firstChild );
 
             /* Setup event handler;
              * The inner function scope is necessary because of the counter, which would be 0 for all events otherwise */
