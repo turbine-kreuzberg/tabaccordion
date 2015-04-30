@@ -7,7 +7,7 @@ An accordion, that may change its display to tabbed content based on the screen 
 - Displays an accordion, tabbed content or plain HTML sections based on the configuration.
 - Switches modes when another CSS breakpoint from your stylesheet was reached.
 - Can be used with nearly any markup.
-- Can be used with Twitter Bootstrap or Zurb Foundation stylesheets. Or you create your own styles based on the basic standalone styles.
+- Can be used with Twitter Bootstrap or Zurb Foundation stylesheets. Or you create your own styles based on the [basic standalone styles](tabaccordion.css).
 - Autoplay mode is available – build a carousel out of tabs.
 
 ## Getting started
@@ -18,7 +18,7 @@ You can download this package by using Bower:
 
 Or you can clone this repository and run `bower install` inside the directory it was checked out to install any dependencies.
 
-The TabAccordion module requires the Media Query Sync package to update itself, when another CSS breakpoint matches. You can either edit the dependency inside `tabaccordion.js` or configure a path in the Requirejs configuration.
+The TabAccordion module requires the [Media Query Sync](https://github.com/votum/media-query-sync) package to update itself, when another CSS breakpoint matches. You can either edit the dependency inside `tabaccordion.js` or configure a path in the Requirejs configuration.
 
 ```javascript
 requirejs.config( {
@@ -55,9 +55,43 @@ document.dispatchEvent( new CustomEvent( 'tabaccordion-pause' ) );
 document.dispatchEvent( new CustomEvent( 'tabaccordion-resume' ) );
 ```
 
+Auto play configuration:
+
+```javascript
+autoPlay: {
+    enabled: false,
+
+    /* How long an item should be visible */
+    delay: 4000,
+
+    /* Start over, when the last item was reached? */
+    loop: true,
+
+    /* Stop, if the user moves the mouse over the element */
+    stopOnHover: true,
+
+    /* Set, which element must be hovered to stop the autoplay;
+     - By default this is config.selector.wrapper */
+    stopOnHoverSelector: null
+}
+```
+
 ### TabAccordion.Accordion
 
 This is a public reference to the `Accordion` objects constructor. This can be used to manually create a single TabAccordion instance. See the source code of the `init` method on how to use `new TabAccordion.Accordion()`. Be aware, that the configuration object passed to the constructor must be complete (i.e. contains all necessary options), while you can pass a partial configuration to the `init` method, that merges the user configuration with the module default values.
+
+```javascript
+/**
+ + The Accordion object
+ *
+ + @param {Element} wrapper The wrapper element around the tab-accordion (which already must exist).
+ + @param {NodeList} sections The single sections/item of an accordion.
+ + @param {String} type One of the keys of the `types` array.
+ + @param {Object} userConfig An object with all configuration parameters.
+ + @constructor
+ */
+function Accordion( wrapper, sections, type, userConfig ) { … }
+```
 
 ## Markup options
 
@@ -104,6 +138,14 @@ This option can be used to open another section than the first one (which is act
 The combination of the options `data-panel-group-all-closed` and `data-panel-group-open` is undefined, not tested and should be avoided.
 
 ## Examples
+
+### Basic example
+
+This examples  features the minimum markup and CSS, necessary to display an vertical accordion and tabbed content with the tabs above the content. Use this to build your own custom TabAccordion styles.
+
+Demo: [examples/basic.htm](https://rawgit.com/votum/tabaccordion/master/examples/basic.htm)
+
+### Bootstrap & Foundation
 
 The Foundation and Bootstrap examples are both based on the respective accordion markup of either framework. Both frameworks lack of a semantic tabbed content markup, so we ignore theirs and build tabs from the accrodion markup through additional CSS.
 
