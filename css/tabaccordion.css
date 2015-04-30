@@ -1,0 +1,83 @@
+/**
+ * TabAccordion basic styles
+ */
+
+/************************
+ TabAccordion general styles
+ ************************/
+.tabaccordion-body-wrapper {
+    overflow: hidden;
+}
+
+.accordion > section > header,
+.tabbed-content > section > header {
+    cursor: pointer;
+}
+
+/************************
+ Tabbed content
+ ************************/
+.tabbed-content {
+    position: relative;
+}
+
+.tabbed-content > section > header {
+    float: left;
+    margin-top: -0.25em;
+    padding-top: 1.25rem;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.tabbed-content > section > header:first-child {
+    padding-left: 0;
+}
+
+.tabbed-content .tabaccordion-body-wrapper {
+    position: absolute;
+    top: 3.6rem;
+    left: 0;
+    right: 0;
+    background: #fff;
+
+    /* Fade in effect */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tabbed-content .open .tabaccordion-body-wrapper {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+}
+
+/* Panel headings as tabs */
+.tabbed-content > section:not(.open) > header {
+    margin-top: 0;
+    padding-top: 1rem;
+}
+
+.tabbed-content > section.open > header {
+    position: relative;
+    z-index: 1;
+}
+
+/************************
+ Accordion
+ ************************/
+.accordion {
+    min-height: 0 !important;
+}
+
+/* Expand/collapse animation */
+.accordion .tabaccordion-body-wrapper {
+    -webkit-transition: max-height 0.25s ease-in-out;
+    -o-transition: max-height 0.25s ease-in-out;
+    transition: max-height 0.25s ease-in-out;
+}
+
+.accordion :not(.open) .tabaccordion-body-wrapper {
+    max-height: 0 !important;
+}
