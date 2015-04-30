@@ -9,7 +9,7 @@
  * @todo Open a section, that was selected through an URL anchor
  * @todo Make all class names configurable from outside of the module scope
  */
-define( ['environment/media-query-sync', 'functions'], function( MediaQuerySync, Functions ) {
+define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions ) {
 
     /**
      * Display constants; do not edit these – they are only used inside this module and are hardcoded below.
