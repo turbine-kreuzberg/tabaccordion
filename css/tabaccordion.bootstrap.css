@@ -1,0 +1,146 @@
+/**
+ * TabAccordion styles for use with Twitter Bootstrap
+ */
+
+/* TabAccordion general styles */
+.tabaccordion-body-wrapper {
+    overflow: hidden;
+    background-color: inherit;
+    border-color: inherit;
+    border-radius: inherit;
+}
+
+.panel-group.accordion .panel-heading,
+.panel-group.tabbed-content .panel-heading {
+    cursor: pointer;
+}
+
+/* Tabbed content */
+.panel-group.tabbed-content {
+    position: relative;
+}
+
+.panel-group.tabbed-content .panel {
+    border-width: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.panel-group.tabbed-content .panel-heading {
+    float: left;
+    margin-top: -0.25em;
+    padding-top: 1.25rem;
+}
+
+.panel-group.tabbed-content .tabaccordion-body-wrapper {
+    position: absolute;
+    top: 3.6rem;
+    left: 0;
+    right: 0;
+
+    /* Fade in effect */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.panel-group.tabbed-content .open .tabaccordion-body-wrapper {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+}
+
+.panel-group.tabbed-content .panel-body {
+    border-style: solid;
+    border-width: 1px;
+    border-color: inherit;
+    border-radius: inherit;
+}
+
+/* Panel headings as tabs */
+.panel-group.tabbed-content .panel-heading {
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+}
+
+.panel-group.tabbed-content :not(.open) .panel-heading {
+    margin-top: 0;
+    padding-top: 1rem;
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+
+.panel-group.tabbed-content .panel:not(.open):last-child .panel-heading {
+    border-right: none;
+}
+
+.panel-group.tabbed-content .open .panel-heading {
+    position: relative;
+    z-index: 1;
+    border-style: solid;
+}
+
+/* Accordion */
+.panel-group.accordion {
+    min-height: 0 !important;
+}
+
+/* An arrow icon on the heading */
+.panel-group.accordion .panel-title {
+    position: relative;
+}
+
+.panel-group.accordion .panel-heading .panel-title {
+    padding-right: 2rem;
+}
+
+.panel-group.accordion .panel-heading .panel-title:after {
+    /* General font-icon styles */
+    display: inline-block;
+    width: 1em;
+    margin-right: .2em;
+    margin-left: .2em;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-align: center;
+    text-decoration: inherit;
+    text-rendering: auto;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Set which icon to use */
+    font-family: 'Glyphicons Halflings';
+    content: '\e114';
+
+    /* Position in the right upper corner */
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    /* Rotate animation for the icon */
+    -webkit-transition: -webkit-transform 0.25s ease-in-out;
+    -moz-transition: -moz-transform 0.25s ease-in-out;
+    -o-transition: -o-transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+}
+
+.panel-group.accordion .open .panel-heading .panel-title:after {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/* Expand/collapse animation */
+.panel-group.accordion .tabaccordion-body-wrapper {
+    -webkit-transition: max-height 0.25s ease-in-out;
+    -o-transition: max-height 0.25s ease-in-out;
+    transition: max-height 0.25s ease-in-out;
+}
+
+.panel-group.accordion :not(.open) .tabaccordion-body-wrapper {
+    max-height: 0 !important;
+}

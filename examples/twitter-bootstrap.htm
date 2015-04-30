@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TabAccordion for Twitter Bootstrap</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/tabaccordion.bootstrap.css" />
+    <link rel="stylesheet" href="https://rawgit.com/votum/media-query-sync/master/media-query-sync.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Using TabAccordion with Twitter Bootstrap CSS</h1>
+
+        <div class="panel-group" role="tablist">
+
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Panel heading #1</h2>
+                </header>
+
+                <div class="panel-body">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet atque aut deleniti distinctio
+                        doloribus
+                        eveniet excepturi ipsa iure laudantium magnam minus modi necessitatibus officiis optio quia
+                        quibusdam,
+                        reiciendis tenetur!
+                    </p>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet atque aut deleniti distinctio
+                        doloribus
+                        eveniet excepturi ipsa iure laudantium magnam minus modi necessitatibus officiis optio quia
+                        quibusdam,
+                        reiciendis tenetur!
+                    </p>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet atque aut deleniti distinctio
+                        doloribus
+                        eveniet excepturi ipsa iure laudantium magnam minus modi necessitatibus officiis optio quia
+                        quibusdam,
+                        reiciendis tenetur!
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel panel-info">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Panel heading #2</h2>
+                </header>
+
+                <div class="panel-body">
+                    <p>
+                        A amet atque aut deleniti distinctio doloribus eveniet excepturi ipsa iure laudantium magnam minus
+                        modi
+                        necessitatibus officiis optio quia quibusdam, reiciendis tenetur!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </p>
+
+                    <p>
+                        A amet atque aut deleniti distinctio doloribus eveniet excepturi ipsa iure laudantium magnam minus
+                        modi
+                        necessitatibus officiis optio quia quibusdam, reiciendis tenetur!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel panel-success">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Panel heading #3</h2>
+                </header>
+
+                <div class="panel-body">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet atque aut deleniti distinctio
+                        doloribus
+                        eveniet excepturi ipsa iure laudantium magnam minus modi necessitatibus officiis optio quia
+                        quibusdam,
+                        reiciendis tenetur!
+                    </p>
+
+                    <p>
+                        A amet atque aut deleniti distinctio doloribus eveniet excepturi ipsa iure laudantium magnam minus
+                        modi
+                        necessitatibus officiis optio quia quibusdam, reiciendis tenetur!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </p>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet atque aut deleniti distinctio
+                        doloribus
+                        eveniet excepturi ipsa iure laudantium magnam minus modi necessitatibus officiis optio quia
+                        quibusdam,
+                        reiciendis tenetur!
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+    <script>
+        /* AMD loader configuration */
+        requirejs.config( {
+            baseUrl: '../js/',
+            paths: {
+                'media-query-sync': 'https://rawgit.com/votum/media-query-sync/master/media-query-sync'
+            }
+        } );
+
+        /* Example usage */
+        require( ['tabaccordion'], function( TabAccordion ) {
+            var tabs = TabAccordion.init( {
+                selector: {
+                    wrapper: '.panel-group',
+                    section: '.panel',
+                    sectionHeading: '.panel-heading',
+                    sectionBody: '.panel-body'
+                }
+            } );
+        } );
+    </script>
+
+</body>
+</html>

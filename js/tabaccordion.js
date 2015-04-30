@@ -258,9 +258,8 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
                 maxHeight = currentMaxHeight;
             }
 
-            /* Set new max-height */
-            bodyWrapper.style.maxHeight = currentMaxHeight + 'px';
-            //bodyWrapper.style.maxHeight = (currentMaxHeight + 30) + 'px';
+            /* Set new max-height and account for the bottom border */
+            bodyWrapper.style.maxHeight = (currentMaxHeight + 2) + 'px';
         }
 
         /* Get example heading height and add it to the overall height */
