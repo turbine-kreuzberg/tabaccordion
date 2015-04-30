@@ -218,8 +218,8 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         }
 
         /* Set computed heights as inline styles */
-        /** @todo find out why this was necessary */
-            //this.setComputedHeights();
+        this.setComputedHeights();
+
         window.addEventListener( 'resize', Functions.debounce( function( event ) {
             currentAccordion.setComputedHeights();
         }, 100 ), false );
