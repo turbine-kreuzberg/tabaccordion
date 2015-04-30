@@ -11,6 +11,9 @@
         "amd"
     ],
     "license": "MIT",
+    "dependencies": {
+        "media-query-sync": "~1.0.0"
+    },
     "ignore": [
         "**/.*",
         "node_modules",
