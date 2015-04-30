@@ -204,7 +204,7 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             heading.addEventListener( 'click', (function() {
                 var currentSection = currentAccordion.sections[i];
                 return function( event ) {
-                    if( currentAccordion.currentDisplay === display.accordion && currentSection.classList.contains( this.config.showSectionClass ) ) {
+                    if( currentAccordion.currentDisplay === display.accordion && currentSection.classList.contains( currentAccordion.config.showSectionClass ) ) {
                         /* Close this section if was open already */
                         currentAccordion.close( currentSection );
                     }
