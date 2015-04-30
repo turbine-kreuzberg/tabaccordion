@@ -1,0 +1,16 @@
+{
+    "name": "tabaccordion",
+    "version": "1.0",
+    "homepage": "https://github.com/votum/tabaccordion",
+    "authors": [
+        "Thomas Heuer <thomas.heuer@votum.de>"
+    ],
+    "description": "A semantic and responsive CSS and JavaScript accordion, that changes its display to tabbed content based on the screen width.",
+    "main": "tabaccordion.js",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ]
+}
