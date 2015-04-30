@@ -2,7 +2,10 @@
  * TabAccordion styles for use with Twitter Bootstrap
  */
 
-/* TabAccordion general styles */
+
+/************************
+ TabAccordion general styles
+ ************************/
 .tabaccordion-body-wrapper {
     overflow: hidden;
     background-color: inherit;
@@ -15,7 +18,10 @@
     cursor: pointer;
 }
 
-/* Tabbed content */
+
+/************************
+ Tabbed content
+ ************************/
 .panel-group.tabbed-content {
     position: relative;
 }
@@ -81,7 +87,10 @@
     border-style: solid;
 }
 
-/* Accordion */
+
+/************************
+ Accordion
+ ************************/
 .panel-group.accordion {
     min-height: 0 !important;
 }
