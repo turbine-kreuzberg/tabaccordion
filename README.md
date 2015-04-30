@@ -21,11 +21,11 @@ bestimmt. So ist der `.panel-header` der klickbare Bereich zur Interaktion und d
 **Beispiel:**
 
 ```html
-    <div class="panel-group">
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-    </div>
+<div class="panel-group">
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+</div>
 ```
 
 ### Darstellungn und Optionen
@@ -66,11 +66,11 @@ Die gleichzeitige Nutzung von `data-panel-group-all-closed` und
 Beim ersten Beispiel ist `data-panel-group-open="2"` gesetzt, es wird also das zweite Element geöffnet.
 
 ```html
-    <div class="panel-group" data-panel-group-open="2">
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-    </div>
+<div class="panel-group" data-panel-group-open="2">
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+</div>
 ```
 
 #### Beispiel #2: Mit Tabs ab MD-Breakpoint
@@ -78,9 +78,9 @@ Beim ersten Beispiel ist `data-panel-group-open="2"` gesetzt, es wird also das z
 Hier ist zusätzlich `data-panel-group-all-closed` gesetzt, es wird also (in der Akkordeon-Ansicht) kein Element geöffnet.
 
 ```html
-    <div class="panel-group" data-panel-group-type="accordion-tabs" data-panel-group-all-closed>
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-        <section class="panel panel-default">…</section>
-    </div>
+<div class="panel-group" data-panel-group-type="accordion-tabs" data-panel-group-all-closed>
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+    <section class="panel panel-default">…</section>
+</div>
 ```
