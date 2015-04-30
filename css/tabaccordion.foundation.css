@@ -1,0 +1,130 @@
+/**
+ * TabAccordion styles for use with Zurb Foundation
+ */
+
+
+/************************
+ TabAccordion general styles
+ ************************/
+.accordion-navigation .tabaccordion-body-wrapper {
+    overflow: hidden;
+}
+
+/* Disable Foundation hiding via display property */
+.accordion-navigation .content {
+    display: block !important;
+    padding: 0.83333rem;
+}
+ul.accordion {
+    margin-left: 0;
+}
+
+
+/************************
+ Tabbed content
+ ************************/
+.accordion.tabbed-content {
+    position: relative;
+}
+
+.accordion.tabbed-content .accordion-navigation {
+    border-width: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.accordion.tabbed-content .accordion-navigation > a {
+    float: left;
+    margin-top: -0.25em;
+    padding-top: 1.25rem;
+}
+
+.accordion.tabbed-content .tabaccordion-body-wrapper {
+    position: absolute;
+    top: 3.6rem;
+    left: 0;
+    right: 0;
+
+    /* Fade in effect */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.accordion.tabbed-content .active .tabaccordion-body-wrapper {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+}
+
+.accordion.tabbed-content :not(.active) .accordion-navigation > a {
+    margin-top: 0;
+    padding-top: 1rem;
+}
+
+.accordion.tabbed-content .active .accordion-navigation > a {
+    position: relative;
+    z-index: 1;
+}
+
+
+/************************
+ Accordion
+ ************************/
+
+/* An arrow icon on the heading */
+.type-accordion .accordion-navigation > a {
+    position: relative;
+    padding-right: 2rem;
+}
+
+.type-accordion .accordion-navigation > a:after {
+    /* General font-icon styles */
+    display: inline-block;
+    width: 1em;
+    margin-right: .2em;
+    margin-left: .2em;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-align: center;
+    text-decoration: inherit;
+    text-rendering: auto;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Set which icon to use */
+    font-family: 'sans-serif';
+    content: '+';
+
+    /* Position in the right upper corner */
+    position: absolute;
+    top: 1.25em;
+    right: 1em;
+
+    /* Rotate animation for the icon */
+    -webkit-transition: -webkit-transform 0.25s ease-in-out;
+    -moz-transition: -moz-transform 0.25s ease-in-out;
+    -o-transition: -o-transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+}
+
+.type-accordion .accordion-navigation.active > a:after {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Expand/collapse animation */
+.type-accordion .accordion-navigation .tabaccordion-body-wrapper {
+    -webkit-transition: max-height 0.25s ease-in-out;
+    -o-transition: max-height 0.25s ease-in-out;
+    transition: max-height 0.25s ease-in-out;
+}
+
+.type-accordion .accordion-navigation:not(.active) .tabaccordion-body-wrapper {
+    max-height: 0 !important;
+}
