@@ -71,7 +71,7 @@ autoPlay: {
     stopOnHover: true,
 
     /* Set, which element must be hovered to stop the autoplay;
-     - By default this is config.selector.wrapper */
+     * By default this is config.selector.wrapper */
     stopOnHoverSelector: null
 }
 ```
@@ -82,13 +82,13 @@ This is a public reference to the `Accordion` objects constructor. This can be u
 
 ```javascript
 /**
- + The Accordion object
+ * The Accordion object
  *
- + @param {Element} wrapper The wrapper element around the tab-accordion (which already must exist).
- + @param {NodeList} sections The single sections/item of an accordion.
- + @param {String} type One of the keys of the `types` array.
- + @param {Object} userConfig An object with all configuration parameters.
- + @constructor
+ * @param {Element} wrapper The wrapper element around the tab-accordion (which already must exist).
+ * @param {NodeList} sections The single sections/item of an accordion.
+ * @param {String} type One of the keys of the `types` array.
+ * @param {Object} userConfig An object with all configuration parameters.
+ * @constructor
  */
 function Accordion( wrapper, sections, type, userConfig ) { … }
 ```
