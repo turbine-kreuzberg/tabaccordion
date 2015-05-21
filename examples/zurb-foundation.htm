@@ -21,7 +21,7 @@
                 No Zurb Foundation JavaScript files are included.
             </p>
 
-            <ul class="accordion" data-accordion>
+            <ul class="accordion tabaccordion" data-accordion>
                 <li class="accordion-navigation">
                     <a href="#panel1a">Accordion 1</a>
                     <div id="panel1a" class="content">
@@ -57,7 +57,8 @@
         requirejs.config( {
             baseUrl: '../js/',
             paths: {
-                'media-query-sync': 'https://rawgit.com/votum/media-query-sync/master/media-query-sync'
+                'media-query-sync': 'https://rawgit.com/votum/media-query-sync/master/media-query-sync',
+                'customEventPolyfill': 'https://rawgit.com/votum/media-query-sync/master/polyfill.customevent.js'
             }
         } );
 

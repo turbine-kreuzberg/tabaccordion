@@ -35,7 +35,7 @@
 
 .tabbed-content .tabaccordion-body-wrapper {
     position: absolute;
-    top: 3.6rem;
+    top: 4.2rem;
     left: 0;
     right: 0;
     background: #fff;
@@ -80,4 +80,21 @@
 
 .accordion :not(.open) .tabaccordion-body-wrapper {
     max-height: 0 !important;
+}
+
+/************************
+ styles for hide on load and fade in on finish accordion
+ ************************/
+.tabaccordion {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -moz-transition: all 300ms ease-in-out, opacity 1000ms ease-in-out, left 1000ms ease-in-out, bottom 1000ms ease-in-out;
+    -o-transition: all 300ms ease-in-out, opacity 1000ms ease-in-out, left 1000ms ease-in-out, bottom 1000ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out, opacity 1000ms ease-in-out, left 1000ms ease-in-out, bottom 1000ms ease-in-out;
+    transition: all 300ms ease-in-out, opacity 1000ms ease-in-out, left 1000ms ease-in-out, bottom 1000ms ease-in-out;
+}
+
+.tabaccordion.loaded{
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=1);
+    opacity: 1;
 }

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TabAccordion as Teaser/Slider</title>
+    <link rel="stylesheet" href="../css/tabaccordion.teaser.css"/>
+    <link rel="stylesheet" href="https://rawgit.com/votum/media-query-sync/master/media-query-sync.css"/>
+</head>
+<body>
+
+
+<header class="top-teaser top-teaser-slider tabaccordion">
+
+    <figure class="open">
+        <img src="img/teaser-image-1.jpg">
+
+        <p class="slogan">
+                <span class="slogan-top">
+                    <span class="line">Votum Tabaccordion plugin<br></span>
+                </span>
+                <span class="slogan-bottom">
+                    <span class="line">powered by www.votum.de</span>
+                </span>
+        </p>
+
+        <div class="caption-wrapper">
+            <figcaption>
+                <h3>powered by www.votum.de</h3>
+
+                <p>
+                    on www.github.com/votum/tabaccordion you can download this project.
+                </p>
+
+                <p><a href="http://github.com/votum/tabaccordion" target="_blank">TabAccordion on github.com</a></p>
+            </figcaption>
+        </div>
+    </figure>
+
+    <figure>
+        <img src="img/teaser-image-2.jpg">
+
+        <p class="slogan">
+                <span class="slogan-top">
+                    <span class="line">A js accordion plugin by VOTUM<br></span>
+                </span>
+                <span class="slogan-bottom">
+                    <span class="line">powered by www.votum.de</span>
+                </span>
+        </p>
+
+        <div class="caption-wrapper">
+            <figcaption>
+                <h3>E-Commerce & Brand Communication</h3>
+
+                <p>
+                    VOTUM is your agency for E-Commerce & Brand Communication in Berlin - Kreuzberg.
+                </p>
+
+                <p><a href="http://www.votum.de/agentur/" target="_blank">about us</a></p>
+            </figcaption>
+        </div>
+    </figure>
+
+    <figure>
+        <img src="img/teaser-image-3.jpg">
+
+        <p class="slogan">
+                <span class="slogan-top">
+                    <span class="line">check github.com/votum<br></span>
+                </span>
+                <span class="slogan-bottom">
+                    <span class="line">powered by www.votum.de</span>
+                </span>
+        </p>
+
+        <div class="caption-wrapper">
+            <figcaption>
+                <h3>Consulting, Planning and Conversion...</h3>
+
+                <p>
+                    We develop intelligent strategies and solutions for the web, with all the necessary success factors
+                    in our mind.
+                </p>
+
+                <p><a href="https://www.votum.de/leistungen/" target="_blank">we offer</a></p>
+            </figcaption>
+        </div>
+    </figure>
+
+    <figure>
+        <img src="img/teaser-image-4.jpg">
+
+        <p class="slogan">
+                <span class="slogan-top">
+                    <span class="line">happy tabbing<br></span>
+                </span>
+                <span class="slogan-bottom">
+                    <span class="line">powered by www.votum.de</span>
+                </span>
+        </p>
+
+        <div class="caption-wrapper">
+            <figcaption>
+                <h3>Solutions by VOTUM</h3>
+
+                <p>
+                    You can find more javascript plugins, like Page Transitions, an equalheight script or a Media Query
+                    script on our Github page.
+                </p>
+
+                <p><a href="https://github.com/votum" target="_blank">VOTUM on github</a></p>
+            </figcaption>
+        </div>
+    </figure>
+
+</header>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+<script>
+    /* AMD loader configuration */
+    requirejs.config({
+        baseUrl: '../js/',
+        paths: {
+            'media-query-sync': 'https://rawgit.com/votum/media-query-sync/master/media-query-sync',
+            'customEventPolyfill': 'https://rawgit.com/votum/media-query-sync/master/polyfill.customevent.js'
+        }
+    });
+
+
+    /* Example usage */
+    require(['tabaccordion'], function (TabAccordion) {
+        TabAccordion.init({
+            selector: {
+                wrapper: '.top-teaser-slider',
+                section: 'figure',
+                sectionHeading: ':scope > .caption-wrapper',
+                sectionBody: ':scope > *:not(.caption-wrapper)'
+            },
+            autoPlay: {
+                delay: 7000,
+                enabled: true,
+                stopOnHoverSelector: 'figcaption,iframe'
+            },
+            defaultType: 'slider'
+        });
+    });
+</script>
+
+</body>
+</html>

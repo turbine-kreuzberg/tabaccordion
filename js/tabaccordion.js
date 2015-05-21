@@ -9,7 +9,7 @@
  * @todo Open a section, that was selected through an URL anchor
  * @todo Make all class names configurable from outside of the module scope
  */
-define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions ) {
+define(['media-query-sync', 'functions'], function (MediaQuerySync, Functions) {
 
     /**
      * Display constants; do not edit these – they are only used inside this module and are hardcoded below.
@@ -93,6 +93,13 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
                 xl: display.tabs,
                 xxl: display.tabs
             },
+            'slider': {
+                sm: display.tabs,
+                md: display.tabs,
+                lg: display.tabs,
+                xl: display.tabs,
+                xxl: display.tabs
+            },
             'accordion-mobile-only': {
                 sm: display.accordion,
                 md: display.accordion,
@@ -149,13 +156,13 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      * @param {Object} userConfig An object with all configuration parameters.
      * @constructor
      */
-    function Accordion( wrapper, sections, type, userConfig ) {
+    function Accordion(wrapper, sections, type, userConfig) {
 
-        if( !(wrapper instanceof Element) ) {
-            throw new Error( 'Accordion: The parameter `wrapper` must be of type Element but was of type `' + (typeof wrapper) + '`.' );
+        if (!(wrapper instanceof Element)) {
+            throw new Error('Accordion: The parameter `wrapper` must be of type Element but was of type `' + (typeof wrapper) + '`.');
         }
-        if( !(sections instanceof NodeList) ) {
-            throw new Error( 'Accordion: The parameter `sections` must be of type NodeList but was of type `' + (typeof sections) + '`.' );
+        if (!(sections instanceof NodeList)) {
+            throw new Error('Accordion: The parameter `sections` must be of type NodeList but was of type `' + (typeof sections) + '`.');
         }
 
         this.config = userConfig;
@@ -174,79 +181,80 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         var heading, body, thisBodyWrapper;
 
         /* Add number of sections to the wrapper */
-        if( this.config.wrapperSectionCountClassPrefix ) {
-            this.wrapper.classList.add( this.config.wrapperSectionCountClassPrefix + this.length );
+        if (this.config.wrapperSectionCountClassPrefix) {
+            this.wrapper.classList.add(this.config.wrapperSectionCountClassPrefix + this.length);
         }
 
         /* Only create the wrapper element once and copy it as necessary (see below) */
-        var bodyWrapper = document.createElement( 'div' );
+        var bodyWrapper = document.createElement('div');
         bodyWrapper.className = this.config.sectionBodyWrapperClass;
 
         /* Iterate over sections */
-        for( var i = this.length; i--; ) {
+        for (var i = this.length; i--;) {
 
             /* Cache necessary elements */
-            heading = currentAccordion.sections[i].querySelector( this.config.selector.sectionHeading );
-            body = currentAccordion.sections[i].querySelectorAll( this.config.selector.sectionBody );
+            heading = currentAccordion.sections[i].querySelector(this.config.selector.sectionHeading);
+            body = currentAccordion.sections[i].querySelectorAll(this.config.selector.sectionBody);
+
 
             /* Make a copy of the body-wrapper element and wrap the body in it */
-            thisBodyWrapper = bodyWrapper.cloneNode( false );
+            thisBodyWrapper = bodyWrapper.cloneNode(false);
 
-            for( var k = 0, len = body.length; k < len; k++ ) {
-                thisBodyWrapper.appendChild( body[k] );
+            for (var k = 0, len = body.length; k < len; k++) {
+                thisBodyWrapper.appendChild(body[k]);
             }
 
-            currentAccordion.sections[i].appendChild( thisBodyWrapper );
+            currentAccordion.sections[i].appendChild(thisBodyWrapper);
 
             /* Setup event handler;
              * The inner function scope is necessary because of the counter, which would be 0 for all events otherwise */
-            heading.addEventListener( 'click', (function() {
+            heading.addEventListener('click', (function () {
                 var currentSection = currentAccordion.sections[i];
-                return function( event ) {
-                    if( currentAccordion.currentDisplay === display.accordion && currentSection.classList.contains( currentAccordion.config.showSectionClass ) ) {
+                return function (event) {
+                    if (currentAccordion.currentDisplay === display.accordion && currentSection.classList.contains(currentAccordion.config.showSectionClass)) {
                         /* Close this section if was open already */
-                        currentAccordion.close( currentSection );
+                        currentAccordion.close(currentSection);
                     }
                     else {
                         /* Or open it, if it was not */
-                        currentAccordion.open( currentSection );
+                        currentAccordion.open(currentSection);
                     }
                 };
-            })() );
+            })());
 
         }
 
         /* Set computed heights as inline styles */
         this.setComputedHeights();
 
-        window.addEventListener( 'resize', Functions.debounce( function( event ) {
+        window.addEventListener('resize', Functions.debounce(function (event) {
             currentAccordion.setComputedHeights();
-        }, 100 ), false );
+        }, 100), false);
 
         /* Initially set type according to current device state (media query breakpoint) */
-        this.updateType( MediaQuerySync.getDeviceState() );
+        this.updateType(MediaQuerySync.getDeviceState());
 
         /* Change the type as necessary when another breakpoint was reached */
-        window.addEventListener( 'deviceStateChanged', function( event ) {
-            currentAccordion.updateType( event.deviceState );
-        }, false );
+        window.addEventListener('deviceStateChanged', function (event) {
+            currentAccordion.updateType(event.deviceState);
+        }, false);
     }
 
     /**
      * Iterate over each section to read its real height (the one without a height/max-height value).
      * This computed height is then set as `max-height`.
      */
-    Accordion.prototype.setComputedHeights = function() {
+    Accordion.prototype.setComputedHeights = function () {
         var bodyWrapper, maxHeight = 0, currentMaxHeight, heading;
 
         /* Remove any styles */
         var classNameTmp = this.wrapper.className;
         //this.wrapper.className = '';
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.accordion );
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.tabs );
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.accordion);
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.tabs);
 
-        for( var i = this.length; i--; ) {
-            bodyWrapper = this.sections[i].querySelector( '.' + this.config.sectionBodyWrapperClass );
+        for (var i = this.length; i--;) {
+            bodyWrapper = this.sections[i].querySelector('.' + this.config.sectionBodyWrapperClass);
 
             /* Fall back to no max-height */
             bodyWrapper.style.maxHeight = 'none';
@@ -254,7 +262,7 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             currentMaxHeight = bodyWrapper.offsetHeight;
 
             /* Store the biggest height of all sections */
-            if( currentMaxHeight > maxHeight ) {
+            if (currentMaxHeight > maxHeight) {
                 maxHeight = currentMaxHeight;
             }
 
@@ -263,7 +271,7 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         }
 
         /* Get example heading height and add it to the overall height */
-        heading = this.sections[0].querySelector( this.config.selector.sectionHeading );
+        heading = this.sections[0].querySelector(this.config.selector.sectionHeading);
         this.wrapper.style.minHeight = maxHeight + 'px';
 
         /* set original class name */
@@ -273,15 +281,15 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
     /**
      * @param {String} deviceState One of [xs, sm, md, lg]
      */
-    Accordion.prototype.updateType = function( deviceState ) {
-        if( !this.type[deviceState] ) {
+    Accordion.prototype.updateType = function (deviceState) {
+        if (!this.type[deviceState]) {
             return;
         }
 
         this.currentDisplay = this.type[deviceState];
 
         /* switch to type */
-        switch( this.type[deviceState] ) {
+        switch (this.type[deviceState]) {
             case display.none:
                 this.removeTabAccordion();
                 break;
@@ -299,18 +307,18 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      *
      * @param {Element|Number} section
      */
-    Accordion.prototype.open = function( section ) {
+    Accordion.prototype.open = function (section) {
 
         /* get a single section from numeric index */
-        if( !(section instanceof Element) ) {
-            section = this.sections.item( parseInt( section, 10 ) );
+        if (!(section instanceof Element)) {
+            section = this.sections.item(parseInt(section, 10));
         }
 
         /* close the last section */
-        this.close( this.activeSection );
+        this.close(this.activeSection);
 
         /* open section */
-        section.classList.add( this.config.showSectionClass );
+        section.classList.add(this.config.showSectionClass);
 
         /* set this section as current */
         this.activeSection = section;
@@ -321,56 +329,78 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      *
      * @param {Element|Number|undefined} section
      */
-    Accordion.prototype.close = function( section ) {
+    Accordion.prototype.close = function (section) {
 
         /* close all sections without parameter */
-        if( typeof section === 'undefined' ) {
-            for( var i = this.length; i--; ) {
-                this.close( this.sections[i] );
+        if (typeof section === 'undefined') {
+            for (var i = this.length; i--;) {
+                this.close(this.sections[i]);
             }
             return;
         }
 
         /* get a single section from numeric index */
-        if( !(section instanceof Element) ) {
-            section = this.sections.item( parseInt( section, 10 ) );
+        if (!(section instanceof Element)) {
+            section = this.sections.item(parseInt(section, 10));
         }
 
         /* close section */
-        section.classList.remove( this.config.showSectionClass );
+        section.classList.remove(this.config.showSectionClass);
     };
 
     /**
      * Remove any classes, switch back to normal panels
      */
-    Accordion.prototype.removeTabAccordion = function() {
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.tabs );
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.accordion );
+    Accordion.prototype.removeTabAccordion = function () {
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.tabs);
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.accordion);
     };
 
     /**
      * Turn the current section group into an accordion
      */
-    Accordion.prototype.makeAccordion = function() {
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.tabs );
-        this.wrapper.classList.add( this.config.wrapperTypeClass.accordion );
+    Accordion.prototype.makeAccordion = function () {
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.tabs);
+        this.wrapper.classList.add(this.config.wrapperTypeClass.accordion);
+
+        /* accordion is ready: run stuff here */
+        var _this = this;
+        setTimeout(function () {
+            _this.wrapper.classList.add('loaded');
+            /* run callback function if there */
+            if (_this.config.onAccordionReady != null) {
+                _this.config.onAccordionReady();
+            }
+        }, 100);
     };
 
     /**
      * Turn the current section group into tabbed content
      */
-    Accordion.prototype.makeTabs = function() {
-        this.wrapper.classList.add( this.config.wrapperTypeClass.tabs );
-        this.wrapper.classList.remove( this.config.wrapperTypeClass.accordion );
-        this.open( 0 );
+    Accordion.prototype.makeTabs = function () {
+        this.wrapper.classList.add(this.config.wrapperTypeClass.tabs);
+        this.wrapper.classList.remove(this.config.wrapperTypeClass.accordion);
+        this.open(0);
 
-        /* run callback onAccordionReady function here */
-        if( this.config.onAccordionReady != null ) {
-            var _this = this;
-            setTimeout( function() {
+        /* tabs are ready: run stuff here */
+        var _this = this;
+        setTimeout(function () {
+
+            if(_this.config.defaultType === 'slider') {
+                /* make elements inside of sectionHeading visible */
+                Array.prototype.forEach.call(_this.sections, function (el) {
+                    var sectionHeadingElements = el.querySelector(_this.config.selector.sectionHeading + ' > *');
+                    sectionHeadingElements.classList.add('loaded');
+                });
+            }else{
+                _this.wrapper.classList.add('loaded');
+            }
+
+            /* run callback function if there */
+            if (_this.config.onAccordionReady != null) {
                 _this.config.onAccordionReady();
-            }, 100 );
-        }
+            }
+        }, 100);
     };
 
     var module = {
@@ -386,35 +416,35 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
          * @param {Object} classNames Custom overwrites for the class names as in the `classes` object.
          * @returns {Array} A list of Accordion objects
          */
-        init: function( userConfig ) {
+        init: function (userConfig) {
 
             /* Use user configuration if provided */
-            var config = Functions.extend( defaultConfig, userConfig );
+            var config = Functions.extend(defaultConfig, userConfig);
 
             var accordions = [],
-                accordionGroups = document.querySelectorAll( config.selector.wrapper ),
+                accordionGroups = document.querySelectorAll(config.selector.wrapper),
                 currentAccordion;
 
-            for( var i = accordionGroups.length; i--; ) {
+            for (var i = accordionGroups.length; i--;) {
                 try {
                     currentAccordion = new Accordion(
                         accordionGroups[i],
-                        accordionGroups[i].querySelectorAll( config.selector.section ),
+                        accordionGroups[i].querySelectorAll(config.selector.section),
                         accordionGroups[i].dataset.panelGroupType,
                         config
                     );
 
                     /* Check if explicitly is defined to leave all elements closed by data attribute `data-panel-group-all-closed` */
-                    if( typeof accordionGroups[i].dataset.panelGroupAllClosed === 'undefined' ) {
+                    if (typeof accordionGroups[i].dataset.panelGroupAllClosed === 'undefined') {
 
                         /* If not explicitly defined, open one accordion element */
                         var groupOpen = 0;
 
                         /* Open a specified accordion element if specified by data attribute, e.g. 'data-panel-group-open="2"', else open first element */
-                        if( accordionGroups[i].dataset.panelGroupOpen ) {
-                            groupOpen = parseInt( accordionGroups[i].dataset.panelGroupOpen, 10 );
+                        if (accordionGroups[i].dataset.panelGroupOpen) {
+                            groupOpen = parseInt(accordionGroups[i].dataset.panelGroupOpen, 10);
 
-                            if( groupOpen >= 1 ) {
+                            if (groupOpen >= 1) {
                                 groupOpen--;
                             }
                             else {
@@ -422,19 +452,19 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
                             }
                         }
 
-                        currentAccordion.open( groupOpen );
+                        currentAccordion.open(groupOpen);
                     }
 
                     /* Autoplay for this tabaccordion */
-                    if( config.autoPlay.enabled ) {
-                        module.autoPlay( currentAccordion );
+                    if (config.autoPlay.enabled) {
+                        module.autoPlay(currentAccordion);
                     }
 
                     /* Store a reference to return */
-                    accordions.push( currentAccordion );
+                    accordions.push(currentAccordion);
                 }
-                catch( error ) {
-                    console.error( error.stack );
+                catch (error) {
+                    console.error(error.stack);
                 }
             }
             /* Return the list of accordion elements for further manipulation */
@@ -444,58 +474,58 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         /**
          * @param {Accordion} accordion
          */
-        autoPlay: function( accordion ) {
+        autoPlay: function (accordion) {
 
             var stopOnHoverElements,
                 pauseAutoPlay = false,
                 isManuallyPaused = false;
 
-            if( accordion.config.autoPlay.stopOnHover ) {
-                if( !!accordion.config.autoPlay.stopOnHoverSelector ) {
-                    stopOnHoverElements = accordion.wrapper.querySelectorAll( accordion.config.autoPlay.stopOnHoverSelector );
+            if (accordion.config.autoPlay.stopOnHover) {
+                if (!!accordion.config.autoPlay.stopOnHoverSelector) {
+                    stopOnHoverElements = accordion.wrapper.querySelectorAll(accordion.config.autoPlay.stopOnHoverSelector);
                 }
                 else {
                     stopOnHoverElements = accordion.wrapper;
                 }
 
-                if( stopOnHoverElements instanceof NodeList ) {
+                if (stopOnHoverElements instanceof NodeList) {
                     /* Pause on mouse over */
-                    Functions.on( document.body, 'mouseover', stopOnHoverElements, function() {
-                        if( !isManuallyPaused ) {
+                    Functions.on(document.body, 'mouseover', stopOnHoverElements, function () {
+                        if (!isManuallyPaused) {
                             pauseAutoPlay = true;
                         }
-                    } );
+                    });
 
                     /* Autoplay on mouse out */
-                    Functions.on( document.body, 'mouseout', stopOnHoverElements, function() {
-                        if( !isManuallyPaused ) {
+                    Functions.on(document.body, 'mouseout', stopOnHoverElements, function () {
+                        if (!isManuallyPaused) {
                             pauseAutoPlay = false;
                         }
-                    } );
+                    });
                 }
             }
 
-            document.addEventListener( 'tabaccordion-pause', function() {
+            document.addEventListener('tabaccordion-pause', function () {
                 isManuallyPaused = true;
                 pauseAutoPlay = true;
-            }, false );
+            }, false);
 
-            document.addEventListener( 'tabaccordion-resume', function() {
+            document.addEventListener('tabaccordion-resume', function () {
                 isManuallyPaused = false;
                 pauseAutoPlay = false;
-            }, false );
+            }, false);
 
-            setInterval( function() {
-                if( !pauseAutoPlay ) {
-                    var currentItem = Array.prototype.indexOf.call( accordion.sections, accordion.activeSection );
-                    if( currentItem === accordion.length - 1 ) {
-                        accordion.open( 0 );
+            setInterval(function () {
+                if (!pauseAutoPlay) {
+                    var currentItem = Array.prototype.indexOf.call(accordion.sections, accordion.activeSection);
+                    if (currentItem === accordion.length - 1) {
+                        accordion.open(0);
                     }
                     else {
-                        accordion.open( currentItem + 1 );
+                        accordion.open(currentItem + 1);
                     }
                 }
-            }, accordion.config.autoPlay.delay );
+            }, accordion.config.autoPlay.delay);
 
         }
 
@@ -503,4 +533,4 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
 
     return module;
 
-} );
+});
