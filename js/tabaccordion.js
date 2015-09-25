@@ -400,30 +400,11 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
                     currentAccordion = new Accordion(
                         accordionGroups[i],
                         accordionGroups[i].querySelectorAll( config.selector.section ),
-                        accordionGroups[i].dataset.panelGroupType,
+                        accordionGroups[i].dataset.tabaccordionType,
                         config
                     );
 
-                    /* Check if explicitly is defined to leave all elements closed by data attribute `data-panel-group-all-closed` */
-                    if( typeof accordionGroups[i].dataset.panelGroupAllClosed === 'undefined' ) {
-
-                        /* If not explicitly defined, open one accordion element */
-                        var groupOpen = 0;
-
-                        /* Open a specified accordion element if specified by data attribute, e.g. 'data-panel-group-open="2"', else open first element */
-                        if( accordionGroups[i].dataset.panelGroupOpen ) {
-                            groupOpen = parseInt( accordionGroups[i].dataset.panelGroupOpen, 10 );
-
-                            if( groupOpen >= 1 ) {
-                                groupOpen--;
-                            }
-                            else {
-                                groupOpen = 0;
-                            }
-                        }
-
-                        currentAccordion.open( groupOpen );
-                    }
+                    module.initialOpenGroup( currentAccordion );
 
                     /* Autoplay for this tabaccordion */
                     if( config.autoPlay.enabled ) {
@@ -439,6 +420,47 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             }
             /* Return the list of accordion elements for further manipulation */
             return accordions;
+        },
+
+        /**
+         * Open an accordion element on initialization
+         *
+         * @param {Accordion} accordion
+         */
+        initialOpenGroup: function( accordion ) {
+
+            /* Check if explicitly is defined to leave all elements closed by data attribute `data-panel-group-all-closed` */
+            if( typeof accordion.wrapper.dataset.tabaccordionAllClosed !== 'undefined' ) {
+                return;
+            }
+
+            var groupOpen = 0;
+
+            /* TabbedContent always opens the first tab, so we need to close it */
+            accordion.close( 0 );
+
+            /* Open a specified accordion element if specified by data attribute, e.g. 'data-panel-group-open="2"', else open first element */
+            if( accordion.wrapper.dataset.tabaccordionOpen ) {
+                groupOpen = parseInt( accordion.wrapper.dataset.tabaccordionOpen, 10 );
+
+                if( groupOpen >= 1 ) {
+                    groupOpen--;
+                }
+                else {
+                    groupOpen = 0;
+                }
+            }
+            else {
+                /* Open the accordion element that already has the showSectionClass set. */
+                for( var i = 0, len = accordion.length; i < len; i++ ) {
+                    if( accordion.sections[i].classList.contains( accordion.config.showSectionClass ) ) {
+                        groupOpen = i;
+                        break;
+                    }
+                }
+            }
+
+            accordion.open( groupOpen );
         },
 
         /**
