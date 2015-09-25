@@ -292,6 +292,14 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             default:
                 this.makeAccordion();
         }
+
+        /* run callback onAccordionReady function here */
+        if( this.config.onAccordionReady != null ) {
+            var _this = this;
+            setTimeout( function() {
+                _this.config.onAccordionReady();
+            }, 100 );
+        }
     };
 
     /**
@@ -362,15 +370,9 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
     Accordion.prototype.makeTabs = function() {
         this.wrapper.classList.add( this.config.wrapperTypeClass.tabs );
         this.wrapper.classList.remove( this.config.wrapperTypeClass.accordion );
-        this.open( 0 );
 
-        /* run callback onAccordionReady function here */
-        if( this.config.onAccordionReady != null ) {
-            var _this = this;
-            setTimeout( function() {
-                _this.config.onAccordionReady();
-            }, 100 );
-        }
+        /* Open the first item, since a tabbed content without open tabs looks strange */
+        this.open( 0 );
     };
 
     var module = {
