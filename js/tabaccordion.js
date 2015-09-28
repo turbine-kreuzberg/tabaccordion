@@ -233,11 +233,42 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
     }
 
     /**
+     * Remove the max-height from a bodyWrapper if the max-height transition has ended
+     *
+     * @param {TransitionEvent} event
+     */
+    Accordion.prototype.onTransitionEnd = function( event ) {
+
+        /* Update wrapper min-height */
+        this.setWrapperMinHeight();
+
+        if( !event.target.classList.contains( this.config.showSectionClass ) ) {
+            /* Section is closed – store the max-height in data-last-max-height */
+            event.target.dataset.lastMaxHeight = event.target.style.maxHeight;
+        }
+
+        /* remove max-height to let the content grow & shrink */
+        event.target.style.removeProperty( 'max-height' );
+    };
+
+    /**
+     * Update the min-height of the outer wrapper if the content has changed
+     */
+    Accordion.prototype.setWrapperMinHeight = function() {
+        var activeSection = this.sections.item( this.activeSection ),
+            bodyWrapper = activeSection.querySelector( '.' + this.config.sectionBodyWrapperClass ),
+            newMinHeight = parseInt( bodyWrapper.offsetHeight );
+
+        this.wrapper.style.minHeight = newMinHeight + 'px';
+    };
+
+    /**
      * Iterate over each section to read its real height (the one without a height/max-height value).
      * This computed height is then set as `max-height`.
      */
     Accordion.prototype.setComputedHeights = function() {
-        var bodyWrapper, maxHeight = 0, currentMaxHeight, heading;
+        var bodyWrapper, maxHeight = 0, currentMaxHeight,
+            currentAccordion = this;
 
         /* Remove any styles */
         var classNameTmp = this.wrapper.className;
@@ -259,12 +290,18 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             }
 
             /* Set new max-height and account for the bottom border */
-            bodyWrapper.style.maxHeight = (currentMaxHeight + 2) + 'px';
+            bodyWrapper.dataset.lastMaxHeight = (currentMaxHeight + 2) + 'px';
+            //bodyWrapper.style.maxHeight = (currentMaxHeight + 2) + 'px';
+
+            ['transitionend', 'webkitTransitionEnd'].forEach( function( transition ) {
+                bodyWrapper.addEventListener( transition, Functions.debounce( function( event ) {
+                    currentAccordion.onTransitionEnd( event );
+                }, 10 ), false );
+            } );
         }
 
-        /* Get example heading height and add it to the overall height */
-        heading = this.sections[0].querySelector( this.config.selector.sectionHeading );
-        this.wrapper.style.minHeight = maxHeight + 'px';
+        /* Set the highest elements heights as min-height for the wrapper */
+        this.setWrapperMinHeight();
 
         /* set original class name */
         this.wrapper.className = classNameTmp;
@@ -308,6 +345,7 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      * @param {Element|Number} section
      */
     Accordion.prototype.open = function( section ) {
+        var currentAccordion = this;
 
         /* get a single section from numeric index */
         if( !(section instanceof Element) ) {
@@ -317,11 +355,26 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         /* close the last section */
         this.close( this.activeSection );
 
-        /* open section */
-        section.classList.add( this.config.showSectionClass );
+        var bodyWrapper = section.querySelector( '.' + this.config.sectionBodyWrapperClass );
 
-        /* set this section as current */
-        this.activeSection = section;
+        /* Disable any transition, to prevent flickering */
+        bodyWrapper.style.transition = 'initial';
+
+        /* Set a max-height value before opening */
+        bodyWrapper.style.maxHeight = bodyWrapper.dataset.lastMaxHeight;
+
+        /* Re-enable transition asynchronously to give the browser some time to render the content */
+        setTimeout( function() {
+            bodyWrapper.style.removeProperty( 'transition' );
+
+            /* open section */
+            section.classList.add( currentAccordion.config.showSectionClass );
+
+            /* set this section as current */
+            currentAccordion.activeSection = Array.prototype.indexOf.call( currentAccordion.sections, section );
+
+            currentAccordion.setWrapperMinHeight();
+        }, 1 );
     };
 
     /**
@@ -330,6 +383,7 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      * @param {Element|Number|undefined} section
      */
     Accordion.prototype.close = function( section ) {
+        var currentAccordion = this;
 
         /* close all sections without parameter */
         if( typeof section === 'undefined' ) {
@@ -344,8 +398,21 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             section = this.sections.item( parseInt( section, 10 ) );
         }
 
-        /* close section */
-        section.classList.remove( this.config.showSectionClass );
+        var bodyWrapper = section.querySelector( '.' + this.config.sectionBodyWrapperClass );
+
+        /* Disable any transition, to prevent flickering */
+        bodyWrapper.style.transition = 'initial';
+
+        /* Set a max-height value before closing */
+        bodyWrapper.style.maxHeight = (bodyWrapper.offsetHeight + 2) + 'px';
+
+        /* Re-enable transition asynchronously to give the browser some time to render the content */
+        setTimeout( function() {
+            bodyWrapper.style.removeProperty( 'transition' );
+
+            /* close section */
+            section.classList.remove( currentAccordion.config.showSectionClass );
+        }, 1 );
     };
 
     /**
