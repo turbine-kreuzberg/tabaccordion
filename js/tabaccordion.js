@@ -242,13 +242,17 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
         /* Update wrapper min-height */
         this.setWrapperMinHeight();
 
-        if( !event.target.classList.contains( this.config.showSectionClass ) ) {
+        var section = this.sections.item( this.activeSection ),
+            bodyWrapper = section.querySelector( '.' + this.config.sectionBodyWrapperClass );
+
+        if( !bodyWrapper.classList.contains( this.config.showSectionClass ) ) {
             /* Section is closed – store the max-height in data-last-max-height */
-            event.target.dataset.lastMaxHeight = event.target.style.maxHeight;
+            bodyWrapper.dataset.lastMaxHeight = bodyWrapper.style.maxHeight;
         }
 
         /* remove max-height to let the content grow & shrink */
-        event.target.style.removeProperty( 'max-height' );
+        bodyWrapper.style.removeProperty( 'max-height' );
+
     };
 
     /**
