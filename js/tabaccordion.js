@@ -80,32 +80,32 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
          */
         types: {
             'accordion': {
+                xs: display.accordion,
                 sm: display.accordion,
                 md: display.accordion,
                 lg: display.accordion,
-                xl: display.accordion,
-                xxl: display.accordion
+                xl: display.accordion
             },
             'accordion-tabs': {
+                xs: display.accordion,
                 sm: display.accordion,
-                md: display.accordion,
+                md: display.tabs,
                 lg: display.tabs,
-                xl: display.tabs,
-                xxl: display.tabs
+                xl: display.tabs
             },
             'accordion-mobile-only': {
+                xs: display.accordion,
                 sm: display.accordion,
-                md: display.accordion,
+                md: display.none,
                 lg: display.none,
-                xl: display.none,
-                xxl: display.none
+                xl: display.none
             },
             'tabs-only': {
+                xs: display.tabs,
                 sm: display.tabs,
                 md: display.tabs,
                 lg: display.tabs,
-                xl: display.tabs,
-                xxl: display.tabs
+                xl: display.tabs
             }
         },
 
