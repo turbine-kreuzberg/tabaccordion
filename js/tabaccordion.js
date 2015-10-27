@@ -259,11 +259,14 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
      * Update the min-height of the outer wrapper if the content has changed
      */
     Accordion.prototype.setWrapperMinHeight = function() {
-        var activeSection = this.sections.item( this.activeSection ),
-            bodyWrapper = activeSection.querySelector( '.' + this.config.sectionBodyWrapperClass ),
-            newMinHeight = parseInt( bodyWrapper.offsetHeight );
+        var currentAccordion = this;
+        setTimeout(function() {
+            var activeSection = currentAccordion.sections.item( currentAccordion.activeSection ),
+                bodyWrapper = activeSection.querySelector( '.' + currentAccordion.config.sectionBodyWrapperClass ),
+                newMinHeight = parseInt( bodyWrapper.offsetHeight );
 
-        this.wrapper.style.minHeight = newMinHeight + 'px';
+            currentAccordion.wrapper.style.minHeight = newMinHeight + 'px';
+        }, 0);
     };
 
     /**
