@@ -381,6 +381,13 @@ define( ['media-query-sync', 'functions'], function( MediaQuerySync, Functions )
             currentAccordion.activeSection = Array.prototype.indexOf.call( currentAccordion.sections, section );
 
             currentAccordion.setWrapperMinHeight();
+
+            /* trigger open event */
+            document.dispatchEvent( new CustomEvent( 'tabaccordion.open', {
+                detail: {
+                    tabAccordion: currentAccordion
+                }
+            } ) );
         }, 1 );
     };
 
